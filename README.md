@@ -27,8 +27,8 @@ Add internet permission
 <uses-permission android:name="android.permission.INTERNET"/>
 Step 3:
 Add usesCleartextTraffic as true in application tag in android manifest.xml as below
-#
-<application …
+# .
+ <application …
   android:usesCleartextTraffic="true">
 
 
