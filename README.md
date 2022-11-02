@@ -48,6 +48,6 @@ Add below json in info.plist replace com.example with your package name
                 <string>com.example</string>
             </array>
         </dict>
-    </array> #
+    </array> 
 
 
