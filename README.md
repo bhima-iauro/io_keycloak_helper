@@ -27,24 +27,13 @@ Add internet permission
 <uses-permission android:name="android.permission.INTERNET"/>
 Step 3:
 Add usesCleartextTraffic as true in application tag in android manifest.xml as below
-# <application …android:usesCleartextTraffic="true">
+### <application …android:usesCleartextTraffic="true">
 
 
 ## Steps to setup keycloak login for iOS
 
 Add below json in info.plist replace com.example with your package name
 
-# <key>CFBundleURLTypes</key> <array>
-   <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>:/oauth2redirect</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.example</string>
-            </array>
-        </dict>
-    </array> 
+# <key>CFBundleURLTypes</key> <array><dict><key>CFBundleTypeRole</key><string>Editor</string><key>CFBundleURLName</key><string>:/oauth2redirect</string><key>CFBundleURLSchemes</key><array><string>com.example</string></array></dict></array> 
 
 
