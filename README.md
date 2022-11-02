@@ -27,7 +27,8 @@ Add internet permission
 <uses-permission android:name="android.permission.INTERNET"/>
 Step 3:
 Add usesCleartextTraffic as true in application tag in android manifest.xml as below
-# <application …
+#
+<application …
   android:usesCleartextTraffic="true">
 
 
@@ -35,7 +36,8 @@ Add usesCleartextTraffic as true in application tag in android manifest.xml as b
 
 Add below json in info.plist replace com.example with your package name
 
-# <key>CFBundleURLTypes</key>
+# 
+<key>CFBundleURLTypes</key>
     <array>
         <dict>
             <key>CFBundleTypeRole</key>
