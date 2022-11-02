@@ -36,7 +36,7 @@ Add usesCleartextTraffic as true in application tag in android manifest.xml as b
 
 Add below json in info.plist replace com.example with your package name
 
-<key>CFBundleURLTypes</key>
+# <key>CFBundleURLTypes</key>
     <array>
         <dict>
             <key>CFBundleTypeRole</key>
@@ -48,6 +48,6 @@ Add below json in info.plist replace com.example with your package name
                 <string>com.example</string>
             </array>
         </dict>
-    </array>
+    </array> #
 
 
