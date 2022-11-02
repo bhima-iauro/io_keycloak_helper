@@ -27,9 +27,8 @@ Add internet permission
 <uses-permission android:name="android.permission.INTERNET"/>
 Step 3:
 Add usesCleartextTraffic as true in application tag in android manifest.xml as below
-# <application
-        ….
-        android:usesCleartextTraffic="true">
+# <application …
+  android:usesCleartextTraffic="true">
 
 
 ## Steps to setup keycloak login for iOS
