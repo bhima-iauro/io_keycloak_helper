@@ -1,6 +1,12 @@
 
 This Package will help to authenticate with keycloak for android and ios
-
+## To install this as package in flutter project
+```
+ io_keycloak_helper: 
+    git:
+      url: https://github.com/bhima-iauro/io_keycloak_helper.git
+      ref: io_keycloak_helper0.0.1
+  ```
 ## Features And Usage
 Call configureKeycloak() to configure keycloak options, this require to intiate keycloak helper, without configuring this helper will not work
 
