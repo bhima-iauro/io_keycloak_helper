@@ -1,6 +1,12 @@
 
 This Package will help to authenticate with keycloak for android and ios
-
+## To install this as package in flutter project
+```
+ io_keycloak_helper: 
+    git:
+      url: https://github.com/bhima-iauro/io_keycloak_helper.git
+      ref: io_keycloak_helper0.0.1
+  ```
 ## Features And Usage
 Call configureKeycloak() to configure keycloak options, this require to intiate keycloak helper, without configuring this helper will not work
 
@@ -27,15 +33,16 @@ Add internet permission
 <uses-permission android:name="android.permission.INTERNET"/>
 Step 3:
 Add usesCleartextTraffic as true in application tag in android manifest.xml as below
-<application
-        ….
-        android:usesCleartextTraffic="true">
+```
+<application …android:usesCleartextTraffic="true"> 
+```
 
 
 ## Steps to setup keycloak login for iOS
 
 Add below json in info.plist replace com.example with your package name
 
+```
 <key>CFBundleURLTypes</key>
     <array>
         <dict>
@@ -49,5 +56,7 @@ Add below json in info.plist replace com.example with your package name
             </array>
         </dict>
     </array>
+    
+```
 
 
