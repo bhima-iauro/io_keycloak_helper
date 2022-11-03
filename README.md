@@ -18,7 +18,8 @@ Call configureKeycloak() to configure keycloak options, this require to intiate 
  
  call isAccessTokenExpired() to check if token is expired or not
  
- call reAuthenticateLoggedInUser()
+ call reAuthenticateLoggedInUser() to authenticate logged in user with refresh token without showing login screen again
+ This will show exception "Session Expired" if refresh token is expired
 
 ## Attention
 
