@@ -17,6 +17,8 @@ Call configureKeycloak() to configure keycloak options, this require to intiate 
  call isLoggedIn() to check if user logged in or not
  
  call isAccessTokenExpired() to check if token is expired or not
+ 
+ call reAuthenticateLoggedInUser()
 
 ## Attention
 
