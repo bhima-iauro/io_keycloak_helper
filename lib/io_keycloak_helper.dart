@@ -33,7 +33,7 @@ class IOKeycloakHelper {
    Future<String?> getAccessToken() async {
     return await _KeycloakSharedPref.getAccessToken(); 
    }
-   Future<String?> _getRefreshToken() async {
+   Future<String?> getRefreshToken() async {
     return await _KeycloakSharedPref.getRefreshToken(); 
    }
    /// check if user is loggedIn or not
@@ -55,6 +55,17 @@ class IOKeycloakHelper {
     }
     return true;
   }
+  /// check if refresh token is exired or not
+   Future<bool> isRefreshTokenExpired() async {
+    var refreshToken = await getRefreshToken();
+    if (refreshToken != null && refreshToken != "") {
+       DateTime expirationDate = JwtDecoder.getExpirationDate(refreshToken);
+       var today = DateTime.now();
+      //  print(expirationDate.toIso8601String());
+      return expirationDate.isBefore(today);
+    }
+    return true;
+  }
 
    String _getTokenUrl(){
     return '${_authServerUrl}realms/$_realm${_KeyClockConstantsSubUrl.token}';
@@ -72,12 +83,12 @@ class IOKeycloakHelper {
     
   }
  /// this function will logout keycloak
- Future<bool> logout() async {
+  Future<bool> logout() async {
   var loggedIn = await isLoggedIn();
     if (loggedIn == true) {
    
         var accessToken = await getAccessToken();
-        var refreshToken = await _getRefreshToken();
+        var refreshToken = await getRefreshToken();
         if ((accessToken != null && accessToken != "") && (refreshToken != null && refreshToken != "")) {
           await _kcLogoutAPICallMobile(accessToken , refreshToken);
         }
@@ -124,6 +135,55 @@ class IOKeycloakHelper {
      
   }
 
+Future<String?> reAuthenticateLoggedInUser() async {
+  var isExpired = await isRefreshTokenExpired();
+    if (isExpired) {
+      throw Exception("Session Expired");
+    }else {
+      try {
+      var refreshToken = await getRefreshToken();
+       var result = await _kcAuthenticateUsingRefreshToken(refreshToken ?? "");
+       http.Response re = result;
+      Map<String, dynamic> body = jsonDecode(re.body);
+       var accessTokenNew = body["access_token"];
+       var refreshTokenNew = body["refresh_token"];
+       if (accessTokenNew != null && refreshTokenNew != null) {
+          await _KeycloakSharedPref.clearAllPreferences();
+
+        await _KeycloakSharedPref.setLoggedInDetails(
+            accessTokenNew ?? "", refreshTokenNew ?? "");
+        return accessTokenNew;
+       }else {
+        throw Exception("Session Expired");
+       }
+      } on Exception {
+      rethrow;
+    }
+    }
+}
+
+ Future<dynamic> _kcAuthenticateUsingRefreshToken(String refreshToken,) async {
+    final url = "${_authServerUrl}realms/$_realm${_KeyClockConstantsSubUrl.token}";
+   
+    try {
+      var responseJson = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          // HttpHeaders.authorizationHeader: "Bearer $accessToken",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          "client_id": _clientId,
+          "grant_type":"refresh_token",
+          "refresh_token": refreshToken
+        },
+      );
+      return responseJson;
+    } on SocketException {
+      rethrow;
+    }
+  }
 
   Future<dynamic> _kcLogoutAPICallMobile(
     String accessToken,

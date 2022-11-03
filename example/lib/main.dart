@@ -57,9 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
    
-   const authServerUrl = "https://auth.keycloakserver.io/"; // your authServerUrl
-   const realm = "realmname";// your realm
-   const clientId = "";// your clientId
+   const authServerUrl = "https://auth.gessa.io/"; //prod
+  //static const authServerUrl = "http://auth-dev.gessa.io/"; //test
+   const realm = "Sringeri";
+   const clientId = "masterClient";
    const redirectUrl = "com.example.example:/oauth2redirect";// please replace com.example.example with your package name
 
  
@@ -82,6 +83,11 @@ class _MyHomePageState extends State<MyHomePage> {
     debugPrint("is token expired $result");
   
   }
+  void reLogin() async {
+    var result = await IOKeycloakHelper.instance.reAuthenticateLoggedInUser();
+    debugPrint("reauthenticate user $result");
+  
+  }
   @override
   Widget build(BuildContext context) {
  
@@ -94,7 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             
-            Column(children: [
+            Column(children: [ElevatedButton(
+        onPressed: reLogin,
+        child: const Text("Re Login"),
+      ),
         ElevatedButton(
         onPressed: checkLoginStatus,
         child: const Text("Check Login Status"),
